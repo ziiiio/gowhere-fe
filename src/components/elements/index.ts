@@ -1,4 +1,4 @@
-import ErrorComponent from "./ErrorComponent";
-import JustifiedCircularProgress from "./JustifiedCircularProgress";
+import ErrorComponent from './ErrorComponent';
+import JustifiedCircularProgress from './JustifiedCircularProgress';
 
 export { ErrorComponent, JustifiedCircularProgress };
