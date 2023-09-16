@@ -4,11 +4,12 @@ import {NotFoundPage} from "./views/ErrorPages";
 import {createTheme, CssBaseline} from "@mui/material";
 import {ThemeProvider} from '@mui/material/styles';
 import {lightThemeOptions} from "./themes";
+import MainPage from "./views/MainPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <h1>HOWDY</h1>,
+        element: <MainPage />,
         errorElement: <NotFoundPage/>,
     },
 ]);
