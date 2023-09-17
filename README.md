@@ -26,7 +26,7 @@ https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/
 
 ## Docker
 1. simply run `docker-compose -f docker-compose.local.yml up -d --build`
-2. you will be able to access the website on localhost:3000
+2. you will be able to access the website on localhost:3001
 
 ### Assumptions
 - you have nvm installed and are currently using node18.4.0
