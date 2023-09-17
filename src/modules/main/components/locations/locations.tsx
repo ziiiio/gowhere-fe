@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import {
   ICoordinates,
   TLocationResponse,
 } from '../../../../libs/locations/data-domains';
-import { Card, CardMedia, Divider, Typography } from '@mui/material';
+import { Card, CardMedia, Typography } from '@mui/material';
 import { BackendService } from '../../../../services/backend-service';
 import dayjs from 'dayjs';
+import { StyledAccordionDetails, StyledDivider } from './locations.styles';
+import { useIsMobileView } from '../../../../helpers/hooks/isMobile';
 
 // NOTE: components most likely will not be used by others, so no need to export
 const LocalAccordionSummary = ({
@@ -65,6 +66,8 @@ const Locations = ({ locations }: { locations?: TLocationResponse[] }) => {
   const [selectedLocationStreetName, setSelectedLocationStreetName] =
     useState<string>();
 
+  const { isMobile } = useIsMobileView();
+
   const onClickHandler = async (
     selectedLocationIndex: number,
     coordinates: ICoordinates,
@@ -112,16 +115,17 @@ const Locations = ({ locations }: { locations?: TLocationResponse[] }) => {
             cameraId={location.camera_id}
             areaName={location.name}
           />
-          <AccordionDetails
-            sx={{ display: 'flex', justifyContent: 'space-evenly' }}
-          >
+          <StyledAccordionDetails>
             <LocalImageCard
               imageHeight={location.image_metadata.height}
               imageWidth={location.image_metadata.width}
               imageUrl={location.image}
             />
 
-            <Divider orientation="vertical" flexItem />
+            <StyledDivider
+              orientation={isMobile ? 'horizontal' : 'vertical'}
+              flexItem
+            />
 
             <div>
               <Details
@@ -134,7 +138,7 @@ const Locations = ({ locations }: { locations?: TLocationResponse[] }) => {
                 text={dayjs(location.timestamp).format('DD/MM/YYYY HH:mm:ss')}
               />
             </div>
-          </AccordionDetails>
+          </StyledAccordionDetails>
         </Accordion>
       );
     });
