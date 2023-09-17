@@ -35,9 +35,8 @@ https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/
 
 ### Assumptions on Requirements
 1. The locations are tied to the camera coordinates
-2. Human readable locations are found using weather forecast reverse geocode api
-3. The locations are determined by the weather forecast api
-4. The locations shown are closest to the camera coordinates
+2. Human-readable locations are found using weather forecast reverse geocode api
+3. The locations shown are closest to the camera coordinates, not exact
 
 ### Design decisions & constraints
 1. The app uses only 2 apis, locations and geocode
