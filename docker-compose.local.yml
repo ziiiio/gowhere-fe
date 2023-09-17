@@ -6,4 +6,6 @@ services:
       dockerfile: docker.local.Dockerfile
     ports:
       - "3001:80"
+    environment:
+      - TZ=Asia/Singapore
 
