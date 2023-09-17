@@ -1,8 +1,10 @@
 import React from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import { Typography } from '@mui/material';
 
 // TODO: prettify this with css
-const ErrorPage = () => {
+const NotFoundPage = () => {
   const error = useRouteError();
 
   const errorText = isRouteErrorResponse(error)
@@ -10,14 +12,14 @@ const ErrorPage = () => {
     : 'Page Not Found';
 
   return (
-    <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
+    <Container maxWidth="md">
+      <Typography variant={'h1'}>Oops!</Typography>
+      <Typography>Sorry, an unexpected error has occurred.</Typography>
+      <Typography>
         <i>{errorText}</i>
-      </p>
-    </div>
+      </Typography>
+    </Container>
   );
 };
 
-export default ErrorPage;
+export default NotFoundPage;
