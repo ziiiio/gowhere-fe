@@ -43,7 +43,7 @@ export interface IAddressComponent {
   types: string[];
 }
 
-export interface ICoordinates {
+export interface IGeoCodeCoordinates {
   lat: number;
   lng: number;
 }
@@ -52,11 +52,11 @@ export interface IAddressWrapper {
   address_components: IAddressComponent[];
   formatted_address: string;
   geometry: {
-    location: ICoordinates;
+    location: IGeoCodeCoordinates;
     location_type: string;
     viewport: {
-      northeast: ICoordinates;
-      southwest: ICoordinates;
+      northeast: IGeoCodeCoordinates;
+      southwest: IGeoCodeCoordinates;
     };
   };
   place_id: string;
