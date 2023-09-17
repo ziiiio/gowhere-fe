@@ -31,3 +31,15 @@ https://khalilstemmler.com/blogs/typescript/eslint-for-typescript/
 ### Assumptions
 - you have nvm installed and are currently using node18.4.0
 - `serve` package installed globally
+
+
+### Assumptions on Requirements
+1. The locations are tied to the camera coordinates
+2. Human readable locations are found using weather forecast reverse geocode api
+3. The locations are determined by the weather forecast api
+4. The locations shown are closest to the camera coordinates
+
+### Design decisions & constraints
+1. The app uses only 2 apis, locations and geocode
+2. Google geocode api is used to get the street name only when the location is selected because it is expensive
+3. Obtaining all the street names for all the locations is expensive and slow which affects the user experience
