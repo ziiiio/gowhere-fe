@@ -72,32 +72,29 @@ const Locations = ({ locations }: { locations?: TLocationResponse[] }) => {
     selectedLocationIndex: number,
     coordinates: ICoordinates,
   ): Promise<void> => {
-    handleSelectedLocation(selectedLocationIndex);
-    await handleSelectedLocationStreetName(coordinates);
-  };
-
-  const handleSelectedLocation = (selectedLocationIndex: number): void => {
-    // NOTE: if the same location is clicked, close the accordion
+    // NOTE: if the same location is clicked, close the accordion, and skip
     if (selectedLocationIndex === selectedLocation) {
       setSelectedLocation(undefined);
       return;
     }
+
     setSelectedLocation(selectedLocationIndex);
-  };
 
-  const handleSelectedLocationStreetName = async (
-    coordinates: ICoordinates,
-  ): Promise<void> => {
-    // NOTE: always set to undefined first
-    setSelectedLocationStreetName(undefined);
-
-    // NOTE: 'literally' an expensive api call, only call when necessary
-    const geoLocation = await BackendService.getGeoLocation(coordinates);
-
-    // NOTE: some error checking based on google's api
-    if (geoLocation.status !== 'OK' || geoLocation.results.length < 1) return;
-    // NOTE: just take the first street name
-    setSelectedLocationStreetName(geoLocation.results[0].formatted_address);
+    try {
+      // NOTE: 'literally' an expensive api call, only call when necessary
+      const geoLocation = await BackendService.getGeoLocation(coordinates);
+      // NOTE: some error checking based on google's api
+      if (geoLocation.status !== 'OK' || geoLocation.results.length < 1) {
+        console.warn('google cannot find the street name');
+        setSelectedLocationStreetName(undefined);
+        return;
+      }
+      // NOTE: just take the first street name
+      setSelectedLocationStreetName(geoLocation.results[0].formatted_address);
+    } catch (e) {
+      console.error('error getting geo location', e);
+      setSelectedLocationStreetName(undefined);
+    }
   };
 
   const renderLocations = () => {
