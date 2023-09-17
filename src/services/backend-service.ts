@@ -27,7 +27,7 @@ const getLocations = async (dateTime: string) => {
   return response.data as TLocationResponse[];
 };
 
-const getStreetName = async ({ latitude, longitude }: ICoordinates) => {
+const getGeoLocation = async ({ latitude, longitude }: ICoordinates) => {
   const response = await axios.request({
     url: `${BASE_URL}/geocode/location`,
     method: 'GET',
@@ -42,5 +42,5 @@ const getStreetName = async ({ latitude, longitude }: ICoordinates) => {
 
 export const BackendService = {
   getLocations,
-  getStreetName,
+  getGeoLocation,
 };
