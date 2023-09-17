@@ -20,7 +20,7 @@ const Header = (props: HeaderProps) => {
           noWrap
           sx={{ marginRight: '2rem', flexGrow: 1 }}
         >
-          Locations
+          Locations & Weather
         </Typography>
         {props.headerChildren}
       </Toolbar>
