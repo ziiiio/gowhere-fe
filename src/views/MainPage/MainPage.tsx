@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
 import { JustifiedCircularProgress } from '../../components/elements';
@@ -9,10 +9,11 @@ import Typography from '@mui/material/Typography';
 import { BackendService } from '../../services/backend-service';
 import { TLocationResponse } from '../../libs/locations/data-domains';
 import Locations from '../../modules/main/components/locations/locations';
+import { GenericErrorPage } from '../ErrorPages';
 
-// eslint-disable-next-line no-empty-pattern
 const MainPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const [selectedDateTime, setSelectedDateTime] = useState<Dayjs | null>(null);
   const [locations, setLocations] = useState<TLocationResponse[]>();
@@ -25,24 +26,32 @@ const MainPage = () => {
     fetchData();
   }, [selectedDateTime]);
 
-  // NOTE: memoize the function for performance
   const handleDateChange = (newDateTime: Dayjs | null) => {
     setSelectedDateTime(newDateTime);
   };
 
   const fetchData = async () => {
-    setLoading(true);
-    const data = await BackendService.getLocations(
-      selectedDateTime?.format('YYYY-MM-DDTHH:mm:ss') || '',
-    );
-    setLocations(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const data = await BackendService.getLocations(
+        selectedDateTime?.format('YYYY-MM-DDTHH:mm:ss') || '',
+      );
+      setLocations(data);
+      setLoading(false);
+    } catch (e) {
+      console.error('locations api is acting out!', e);
+      setError(true);
+    }
   };
+
+  if (error) {
+    return <GenericErrorPage />;
+  }
 
   return (
     <main>
       <Container maxWidth="md">
-        <Typography style={{ marginTop: '1rem' }} variant="h4" gutterBottom>
+        <Typography style={{ marginTop: '1rem' }} variant="h5" gutterBottom>
           Pick a datetime and you will see the the traffic and weather
           conditions at that time at the place
         </Typography>
